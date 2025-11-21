@@ -2,43 +2,54 @@ name: Build and Deploy Angular
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permette un solo deploy alla volta, saltando le code se arrivano nuovi push
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js
+      - name: Use Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20' 
+          node-version: '20'
+          cache: 'npm' # Aggiunge caching automatico delle dipendenze
 
-      - name: Cache node modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: node-modules-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            node-modules-${{ runner.os }}-
-
-      - name: Install dependencies
+      - name: Install
         run: npm ci
 
-      - name: Build Angular production
-        run: npm run build -- --configuration production
+      # Nota: Assicurati che il base-href corrisponda al nome del repo se non usi un dominio custom
+      - name: Build
+        run: npm run build -- --configuration production --base-href /${{ github.event.repository.name }}/
 
-      - name: Upload production build
-        uses: actions/upload-pages-artifact@v1
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/infinitycar-module
+          # Verifica che questo path corrisponda esattamente alla cartella creata da Angular in dist
+          path: ./dist/infinitycar-module/browser
 
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Deploy to Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
