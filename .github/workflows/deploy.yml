@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Verifica che questo path corrisponda esattamente alla cartella creata da Angular in dist
-          path: ./dist/infinitycar-module
+          path: ./dist/infinitycar-module/browser
 
   deploy:
     environment:
