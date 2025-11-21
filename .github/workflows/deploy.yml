@@ -9,11 +9,14 @@ permissions:
   pages: write
   id-token: write
 
+# Permette un solo deploy alla volta, saltando le code se arrivano nuovi push
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      artifact-path: ./dist/<PROJECT_NAME>
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,24 +25,31 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm' # Aggiunge caching automatico delle dipendenze
 
       - name: Install
         run: npm ci
 
+      # Nota: Assicurati che il base-href corrisponda al nome del repo se non usi un dominio custom
       - name: Build
-        run: npm run build -- --configuration production
+        run: npm run build -- --configuration production --base-href /${{ github.event.repository.name }}/
 
       - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
+          # Verifica che questo path corrisponda esattamente alla cartella creata da Angular in dist
           path: ./dist/infinitycar-module
 
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Configure GitHub Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v5
 
       - name: Deploy to Pages
-        uses: actions/deploy-pages@v1
+        id: deployment
+        uses: actions/deploy-pages@v4
