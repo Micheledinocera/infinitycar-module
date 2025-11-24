@@ -1,0 +1,4 @@
+{
+    "tailwindCSS.experimental.configFile": "src/styles.scss",
+    "html.autoClosingTags": false
+}

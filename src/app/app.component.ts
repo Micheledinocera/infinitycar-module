@@ -6,7 +6,7 @@ import { LargeFormComponent } from "./large-form/large-form.component";
   selector: 'app-root',
   imports: [RouterOutlet, LargeFormComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.sass'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'infinitycar-module';

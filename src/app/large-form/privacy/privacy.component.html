@@ -1,0 +1,29 @@
+<section class="form-section" [formGroup]="formGroup">
+  <h2>Privacy e Consensi</h2>
+
+  <div class="form-checkbox">
+    <input
+      type="checkbox"
+      id="privacyConsent"
+      formControlName="privacyConsent"
+      [class.error]="submitted() && privacyConsent?.invalid"
+    />
+    <label for="privacyConsent">
+      Accetto l'informativa sulla privacy e il trattamento dei dati personali *
+    </label>
+  </div>
+  @if (submitted() && privacyConsent?.invalid) {
+    <span class="error-message block">Devi accettare l'informativa sulla privacy</span>
+  }
+
+  <div class="form-checkbox">
+    <input
+      type="checkbox"
+      id="marketingConsent"
+      formControlName="marketingConsent"
+    />
+    <label for="marketingConsent">
+      Accetto di ricevere comunicazioni di marketing e promozioni
+    </label>
+  </div>
+</section>

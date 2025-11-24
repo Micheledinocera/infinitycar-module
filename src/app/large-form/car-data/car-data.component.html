@@ -1,0 +1,23 @@
+<section class="form-section" [formGroup]="formGroup">
+  <h2>Dati Auto</h2>
+
+  <div class="form-row">
+    <div class="form-group">
+      <p-iftalabel>
+        <label for="targa">Targa *</label>
+        <input
+          type="text"
+          id="targa"
+          formControlName="targa"
+          class="form-input"
+          pInputText
+          placeholder="es. AB123CD"
+          [class.error]="submitted() && targa?.invalid"
+        />
+      </p-iftalabel>
+      @if (submitted() && targa?.invalid) {
+        <span class="error-message">Targa non valida</span>
+      }
+    </div>
+  </div>
+</section>
