@@ -15,4 +15,8 @@ export class PrivacyComponent {
   get privacyConsent() {
     return this.formGroup.get('privacyConsent');
   }
+
+  get marketingConsent() {
+    return this.formGroup.get('marketingConsent');
+  }
 }

@@ -1,0 +1,39 @@
+<div class="w-screen p-8">
+  <div class="form-header">
+    <h1>Modulo di Registrazione</h1>
+    <p>Compila tutti i campi obbligatori per procedere</p>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" class="form">
+    <div class="w-full h-100">
+      <app-swiper-wrapper>
+        <ng-template swiperSlide>
+          <app-personal-info [formGroup]="personalInfoForm" [submitted]="submitted"></app-personal-info>
+        </ng-template>
+        
+        <ng-template swiperSlide>
+          <app-address [formGroup]="addressForm" [submitted]="submitted"></app-address>
+        </ng-template>
+
+        <ng-template swiperSlide>
+          <app-car-data [formGroup]="carDataForm" [submitted]="submitted"></app-car-data>
+        </ng-template>
+
+        <ng-template swiperSlide>
+          <app-privacy [formGroup]="privacyForm" [submitted]="submitted"></app-privacy>
+        </ng-template>
+      </app-swiper-wrapper>
+    </div>
+
+    <!-- Pulsanti -->
+    <div class="form-actions">
+      <p-button (click)="prevSlide()">Indietro</p-button>
+      <p-button (click)="nextSlide()">Avanti</p-button>
+    </div>
+
+    <div class="form-actions">
+      <p-button [disabled]="isFormInvalid()">Invia</p-button>
+      <p-button (click)="reset()">Ripristina</p-button>
+    </div>
+  </form>
+</div>
