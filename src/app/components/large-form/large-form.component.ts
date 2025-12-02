@@ -94,25 +94,33 @@ export class LargeFormComponent {
     );
   }
 
-  isFormInvalid(): boolean {
-    return !this.isAllFormsValid();
-  }
+  isSlideFormInvalid():boolean {
+    if(!this.swiperWrapper)
+      return false
+    if(this.swiperWrapper.getCurrentSlideIndex()==0)
+      return this.personalInfoForm.valid
+    if(this.swiperWrapper.getCurrentSlideIndex()==1)
+      return this.addressForm.valid
+    if(this.swiperWrapper.getCurrentSlideIndex()==2)
+      return this.carDataForm.valid
+    if(this.swiperWrapper.getCurrentSlideIndex()==3)
+      return this.privacyForm.valid
+    return false
+  };
 
   nextSlide(): void {
-    console.log('nextSlide called');
-    if (this.swiperWrapper) {
       this.swiperWrapper.nextSlide();
-    } else {
-      console.warn('swiperWrapper not available');
-    }
   }
 
   prevSlide(): void {
-    console.log('prevSlide called');
-    if (this.swiperWrapper) {
       this.swiperWrapper.prevSlide();
-    } else {
-      console.warn('swiperWrapper not available');
-    }
+  }
+
+  isLastSlide():boolean{
+    return this.swiperWrapper?.isLastSlide()??false;
+  }
+
+  isFirstSlide():boolean{
+    return this.swiperWrapper?.isFirstSlide()??false;
   }
 }

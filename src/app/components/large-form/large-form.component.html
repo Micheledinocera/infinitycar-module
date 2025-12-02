@@ -27,13 +27,12 @@
 
     <!-- Pulsanti -->
     <div class="form-actions">
-      <p-button (click)="prevSlide()">Indietro</p-button>
-      <p-button (click)="nextSlide()">Avanti</p-button>
-    </div>
-
-    <div class="form-actions">
-      <p-button [disabled]="isFormInvalid()">Invia</p-button>
-      <p-button (click)="reset()">Ripristina</p-button>
+      <p-button [disabled]="isFirstSlide()" (click)="prevSlide()">Indietro</p-button>
+      @if(isLastSlide()){
+        <p-button [disabled]="!isSlideFormInvalid()" (click)="onSubmit()">Invia</p-button>
+      } @else {
+        <p-button [disabled]="!isSlideFormInvalid()" (click)="nextSlide()">Avanti</p-button>
+      }
     </div>
   </form>
 </div>
