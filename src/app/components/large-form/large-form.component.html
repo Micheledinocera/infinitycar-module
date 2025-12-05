@@ -6,23 +6,20 @@
 
   <form (ngSubmit)="onSubmit()" class="form">
     <div class="w-full h-100">
-      <app-swiper-wrapper>
-        <ng-template swiperSlide>
+       <swiper-container slides-per-view="1" #swiperContainer>
+        <swiper-slide>
           <app-personal-info [formGroup]="personalInfoForm" [submitted]="submitted"></app-personal-info>
-        </ng-template>
-        
-        <ng-template swiperSlide>
+        </swiper-slide>
+        <swiper-slide>
           <app-address [formGroup]="addressForm" [submitted]="submitted"></app-address>
-        </ng-template>
-
-        <ng-template swiperSlide>
+        </swiper-slide>
+        <swiper-slide>
           <app-car-data [formGroup]="carDataForm" [submitted]="submitted"></app-car-data>
-        </ng-template>
-
-        <ng-template swiperSlide>
+        </swiper-slide>
+        <swiper-slide>
           <app-privacy [formGroup]="privacyForm" [submitted]="submitted"></app-privacy>
-        </ng-template>
-      </app-swiper-wrapper>
+        </swiper-slide>
+       </swiper-container>
     </div>
 
     <!-- Pulsanti -->

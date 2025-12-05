@@ -1,4 +1,4 @@
-import { Component, signal, ViewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -7,7 +7,6 @@ import { AddressComponent } from './address/address.component';
 import { CarDataComponent } from './car-data/car-data.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { emailMatchValidator } from './validators/email-match.validator';
-import { SwiperWrapperComponent } from '../shared/swiper/swiper-wrapper.component';
 
 @Component({
   selector: 'app-large-form',
@@ -20,8 +19,9 @@ import { SwiperWrapperComponent } from '../shared/swiper/swiper-wrapper.componen
     AddressComponent,
     CarDataComponent,
     PrivacyComponent,
-    SwiperWrapperComponent
+    // SwiperWrapperComponent
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './large-form.component.html',
 })
 export class LargeFormComponent {
@@ -30,7 +30,18 @@ export class LargeFormComponent {
   carDataForm: FormGroup;
   privacyForm: FormGroup;
   submitted = signal(false);
-  @ViewChild(SwiperWrapperComponent) swiperWrapper!: SwiperWrapperComponent;
+  
+  @ViewChild('swiperContainer') swiperRef!: ElementRef;
+  
+  ngOnInit() {
+      import('swiper/element/bundle').then(swiper => {
+        swiper.register();
+      });
+  }
+
+    private get swiperInstance(): any {
+      return this.swiperRef?.nativeElement?.swiper;
+    }
 
   constructor(private fb: FormBuilder) {
     this.personalInfoForm = this.fb.group(
@@ -95,32 +106,33 @@ export class LargeFormComponent {
   }
 
   isSlideFormInvalid():boolean {
-    if(!this.swiperWrapper)
+    if(!this.swiperInstance)
       return false
-    if(this.swiperWrapper.getCurrentSlideIndex()==0)
+    if(this.swiperInstance?.activeIndex==0)
       return this.personalInfoForm.valid
-    if(this.swiperWrapper.getCurrentSlideIndex()==1)
+    if(this.swiperInstance?.activeIndex==1)
       return this.addressForm.valid
-    if(this.swiperWrapper.getCurrentSlideIndex()==2)
+    if(this.swiperInstance?.activeIndex==2)
       return this.carDataForm.valid
-    if(this.swiperWrapper.getCurrentSlideIndex()==3)
+    if(this.swiperInstance?.activeIndex==3)
       return this.privacyForm.valid
     return false
   };
 
   nextSlide(): void {
-      this.swiperWrapper.nextSlide();
+      this.swiperInstance.slideNext();
   }
 
   prevSlide(): void {
-      this.swiperWrapper.prevSlide();
+      this.swiperInstance.slidePrev();
   }
 
   isLastSlide():boolean{
-    return this.swiperWrapper?.isLastSlide()??false;
+    return this.swiperInstance?.activeIndex == this.swiperInstance?.slides.length
   }
 
   isFirstSlide():boolean{
-    return this.swiperWrapper?.isFirstSlide()??false;
+    
+    return this.swiperInstance?.activeIndex == 0;
   }
 }
