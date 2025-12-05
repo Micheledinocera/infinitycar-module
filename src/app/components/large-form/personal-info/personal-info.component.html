@@ -15,10 +15,10 @@
         />
       </p-iftalabel>
       @if (submitted() && firstName?.invalid) {
-        <span class="error-message">
-          @if (firstName?.errors?.['required']) { Nome è obbligatorio }
-          @if (firstName?.errors?.['minlength']) { Minimo 2 caratteri }
-        </span>
+      <span class="error-message">
+        @if (firstName?.errors?.['required']) { Nome è obbligatorio } @if (firstName?.errors?.['minlength']) { Minimo 2
+        caratteri }
+      </span>
       }
     </div>
 
@@ -35,10 +35,10 @@
         />
       </p-iftalabel>
       @if (submitted() && lastName?.invalid) {
-        <span class="error-message">
-          @if (lastName?.errors?.['required']) { Cognome è obbligatorio }
-          @if (lastName?.errors?.['minlength']) { Minimo 2 caratteri }
-        </span>
+      <span class="error-message">
+        @if (lastName?.errors?.['required']) { Cognome è obbligatorio } @if (lastName?.errors?.['minlength']) { Minimo 2
+        caratteri }
+      </span>
       }
     </div>
   </div>
@@ -58,7 +58,7 @@
         />
       </p-iftalabel>
       @if (submitted() && codFiscale?.invalid) {
-        <span class="error-message">Codice Fiscale non valido</span>
+      <span class="error-message">Codice Fiscale non valido</span>
       }
     </div>
 
@@ -76,7 +76,7 @@
         />
       </p-iftalabel>
       @if (submitted() && phone?.invalid) {
-        <span class="error-message">Telefono non valido</span>
+      <span class="error-message">Telefono non valido</span>
       }
     </div>
   </div>
@@ -95,7 +95,7 @@
         />
       </p-iftalabel>
       @if (submitted() && email?.invalid) {
-        <span class="error-message">Email non valida</span>
+      <span class="error-message">Email non valida</span>
       }
     </div>
   </div>
@@ -114,10 +114,9 @@
         />
       </p-iftalabel>
       @if (submitted() && confirmEmail?.invalid) {
-        <span class="error-message">Email di conferma è obbligatoria</span>
-      }
-      @if (submitted() && formGroup.errors?.['emailMismatch']) {
-        <span class="error-message">Le email non coincidono</span>
+      <span class="error-message">Email di conferma è obbligatoria</span>
+      } @if (submitted() && formGroup.errors?.['emailMismatch']) {
+      <span class="error-message">Le email non coincidono</span>
       }
     </div>
   </div>

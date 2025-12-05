@@ -6,7 +6,7 @@
 
   <form (ngSubmit)="onSubmit()" class="form">
     <div class="w-full h-100">
-       <swiper-container slides-per-view="1" #swiperContainer>
+      <swiper-container slides-per-view="1" #swiperContainer>
         <swiper-slide>
           <app-personal-info [formGroup]="personalInfoForm" [submitted]="submitted"></app-personal-info>
         </swiper-slide>
@@ -19,16 +19,16 @@
         <swiper-slide>
           <app-privacy [formGroup]="privacyForm" [submitted]="submitted"></app-privacy>
         </swiper-slide>
-       </swiper-container>
+      </swiper-container>
     </div>
 
     <!-- Pulsanti -->
     <div class="form-actions">
       <p-button [disabled]="isFirstSlide()" (click)="prevSlide()">Indietro</p-button>
       @if(isLastSlide()){
-        <p-button [disabled]="!isSlideFormInvalid()" (click)="onSubmit()">Invia</p-button>
+      <p-button [disabled]="!isSlideFormInvalid()" (click)="onSubmit()">Invia</p-button>
       } @else {
-        <p-button [disabled]="!isSlideFormInvalid()" (click)="nextSlide()">Avanti</p-button>
+      <p-button [disabled]="!isSlideFormInvalid()" (click)="nextSlide()">Avanti</p-button>
       }
     </div>
   </form>
