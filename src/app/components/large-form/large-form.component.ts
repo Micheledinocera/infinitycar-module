@@ -30,13 +30,18 @@ export class LargeFormComponent {
   privacyForm: FormGroup;
   submitted = signal(false);
   private swiperInstanceSignal = signal<any | undefined>(undefined);
+  private activeIndex = signal<number>(0);
 
   @ViewChild('swiperContainer') swiperRef!: ElementRef;
 
   ngOnInit() {
     import('swiper/element/bundle').then((swiper) => {
       swiper.register();
-      this.swiperInstanceSignal.set(this.swiperRef?.nativeElement?.swiper);
+      const swiperInstance = this.swiperRef?.nativeElement?.swiper;
+      swiperInstance.on('slideChange', (swiper:any) => {
+        this.onSlideChange(swiper.activeIndex as number);
+      })
+      this.swiperInstanceSignal.set(swiperInstance);
     });
   }
   swiperInstance = computed(() => this.swiperInstanceSignal());
@@ -72,6 +77,10 @@ export class LargeFormComponent {
     });
   }
 
+  onSlideChange(index: number): void {
+    this.activeIndex.set(index);
+  }
+
   onSubmit(): void {
     this.submitted.set(true);
     if (this.isAllFormsValid()) {
@@ -82,7 +91,6 @@ export class LargeFormComponent {
         ...this.privacyForm.value,
       };
       console.log('Form Data:', formData);
-      // Invia i dati al backend
     }
   }
 
@@ -99,11 +107,10 @@ export class LargeFormComponent {
   }
 
   isSlideFormInvalid(): boolean {
-    if (!this.swiperInstance) return false;
-    if (this.swiperInstance()?.activeIndex == 0) return this.personalInfoForm.valid;
-    if (this.swiperInstance()?.activeIndex == 1) return this.addressForm.valid;
-    if (this.swiperInstance()?.activeIndex == 2) return this.carDataForm.valid;
-    if (this.swiperInstance()?.activeIndex == 3) return this.privacyForm.valid;
+    if (this.activeIndex() == 0) return this.personalInfoForm.valid;
+    if (this.activeIndex() == 1) return this.addressForm.valid;
+    if (this.activeIndex() == 2) return this.carDataForm.valid;
+    if (this.activeIndex() == 3) return this.privacyForm.valid;
     return false;
   }
 
@@ -115,11 +122,11 @@ export class LargeFormComponent {
     this.swiperInstance().slidePrev();
   }
 
-  isLastSlide(): boolean {
-    return this.swiperInstance()?.activeIndex == this.swiperInstance()?.slides.length;
-  }
+  isLastSlide = computed(() => {
+    return this.activeIndex() == this.swiperInstance()?.slides.length - 1;
+  });
 
-  isFirstSlide(): boolean {
-    return this.swiperInstance()?.activeIndex == 0;
-  }
+  isFirstSlide = computed(() => {
+    return this.activeIndex() == 0;
+  })
 }
