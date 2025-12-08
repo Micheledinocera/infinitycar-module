@@ -1,0 +1,21 @@
+<div class="input-wrapper">
+      @if (!isLoaded()) {
+        <input 
+          type="text" 
+          [placeholder]="placeholder" 
+          disabled 
+          value="Caricamento servizio indirizzi..." 
+          class="address-input" 
+        />
+      }
+      
+      @if (isLoaded()) {
+        <gmp-place-autocomplete
+          #autocompleteElement
+          [id]="autocompleteId" 
+          [disabled]="disabled"
+          (gmp-placeselect)="handlePlaceSelect($event)" 
+          class="address-autocomplete-element"
+        ></gmp-place-autocomplete>
+      }
+    </div>
