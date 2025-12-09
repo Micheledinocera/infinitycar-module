@@ -63,7 +63,7 @@ export class AddressAutocompleteComponent implements AfterViewInit, ControlValue
 
   private async initGoogleMaps() {
     setOptions({
-      key: '',
+      key: 'API_KEY_PLACEHOLDER',
     });
 
     try {
