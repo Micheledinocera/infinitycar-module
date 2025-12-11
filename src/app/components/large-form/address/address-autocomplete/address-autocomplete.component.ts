@@ -45,6 +45,7 @@ export class AddressAutocompleteComponent implements AfterViewInit, ControlValue
   @Output() placeSelected = new EventEmitter<google.maps.places.PlaceResult>();
 
   @ViewChild('inputField') inputElement!: ElementRef<HTMLInputElement>;
+  @ViewChild('autocompleteElement') autocompleteElement!: ElementRef<any>;
 
   // Iniezione dipendenze
   private ngZone = inject(NgZone);
@@ -52,6 +53,7 @@ export class AddressAutocompleteComponent implements AfterViewInit, ControlValue
   // Variabili interne
   private autocomplete: google.maps.places.Autocomplete | undefined;
   disabled = false;
+  private pendingValue: string | null = null;
 
   // Callback per il ControlValueAccessor
   onChange: (value: string) => void = () => {};
@@ -84,8 +86,29 @@ export class AddressAutocompleteComponent implements AfterViewInit, ControlValue
 
       // 3. Il servizio è pronto, mostra l'elemento nel DOM
       this.isLoaded.set(true);
+
+      // 4. Se c'è un valore in sospeso, impostalo ora
+      if (this.pendingValue) {
+        setTimeout(() => {
+          this.writeValue(this.pendingValue!);
+          this.pendingValue = null;
+        }, 100);
+      }
+
+      // 5. Imposta il focus sull'input interno del Web Component
+      setTimeout(() => {
+        this.focusInput();
+      }, 100);
     } catch (error) {
       console.error('Errore nel caricamento di Google Maps o PlaceAutocomplete:', error);
+    }
+  }
+
+  // Metodo per impostare il focus sul Web Component
+  private focusInput(): void {
+    const element = document.getElementById(this.autocompleteId) as any;
+    if (element && element.focus) {
+      element.focus();
     }
   }
 
@@ -103,19 +126,24 @@ export class AddressAutocompleteComponent implements AfterViewInit, ControlValue
 
         // Emette l'oggetto completo al genitore
         this.placeSelected.emit(place);
+        console.log(place)
       }
     });
   }
+
   // Chiamato da Angular quando il valore cambia programmaticamente (es. form.setValue)
   writeValue(value: string): void {
-    const element = document.getElementById(this.autocompleteId) as google.maps.places.PlaceAutocompleteElement | null;
+    if (!this.isLoaded()) {
+      // Se non è ancora caricato, salva il valore per dopo
+      this.pendingValue = value;
+      return;
+    }
 
-    // Quando il form imposta un valore, dobbiamo impostarlo nel campo interno del Web Component
+    const element = document.getElementById(this.autocompleteId) as any;
+
     if (element) {
-      const autocompleteElement = element as any;
-      // L'elemento ha una proprietà 'value' o 'defaultValue' che puoi impostare
-      // Questo potrebbe richiedere un piccolo ritardo se l'elemento non è completamente reso
-      autocompleteElement.value = value || '';
+      // Imposta il valore nell'input interno del Web Component
+      element.value = value || '';
     }
   }
 
