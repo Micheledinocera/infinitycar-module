@@ -3,12 +3,12 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { IftaLabelModule } from 'primeng/iftalabel';
-import { AddressAutocompleteComponent } from "../address/address-autocomplete/address-autocomplete.component";
+import { AddressAutocomplete } from "../address/address-autocomplete/address-autocomplete.component";
 
 @Component({
   selector: 'app-personal-info',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule, IftaLabelModule, AddressAutocompleteComponent],
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule, IftaLabelModule, AddressAutocomplete ],
   templateUrl: './personal-info.component.html',
 })
 export class PersonalInfoComponent {

@@ -1,21 +1,4 @@
-<div class="input-wrapper">
-      @if (!isLoaded()) {
-        <!-- <input 
-          type="text" 
-          [placeholder]="placeholder" 
-          disabled 
-          value="Caricamento servizio indirizzi..." 
-          class="address-input" 
-        /> -->
-      }
-      
-      @if (isLoaded()) {
-        <gmp-place-autocomplete
-          #autocompleteElement
-          [id]="autocompleteId" 
-          [disabled]="disabled"
-          class="address-autocomplete-element"
-          (gmp-placeselect)="handlePlaceSelect($event)" 
-          ></gmp-place-autocomplete>
-      }
-    </div>
+<div>
+  <label for="autocomplete-address">Search Google Places</label>
+  <div name="autocomplete-address" class="address-group position-relative" #addressGroupContainer></div>
+</div>
