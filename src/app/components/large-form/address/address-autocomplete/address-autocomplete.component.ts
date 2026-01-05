@@ -7,6 +7,8 @@ import {
   inject,
   signal,
   viewChild,
+  Output,
+  EventEmitter     
 } from '@angular/core';
 import { GoogleMapService } from '@app/googlemap.service';
 
@@ -23,7 +25,8 @@ export class AddressAutocomplete {
     'addressGroupContainer'
   );
   public readonly placeJson = signal(null);
-
+  @Output() placeSelected = new EventEmitter<any>();
+  
   async ngOnInit() {
     const maps = await this.googleMapService.getGoogleMapPlaces();
     const placeAutocomplete = new maps.places.PlaceAutocompleteElement({
@@ -44,9 +47,12 @@ export class AddressAutocomplete {
           ],
         });
 
-        if (place.toJSON()) {
-          this.placeJson.set(place.toJSON());
-          console.log(this.placeJson())
+        const placeData = place.toJSON();
+        
+        if (placeData) {
+          this.placeJson.set(placeData);
+          // Emettiamo l'evento verso il padre con i dati completi
+          this.placeSelected.emit(placeData); 
         }
       }
     );

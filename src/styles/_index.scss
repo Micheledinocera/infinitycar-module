@@ -1,2 +1,10 @@
 @forward 'variables';
 @forward 'mixins';
+@forward './primeng/card.scss';
+
+body {
+    background-color: var(--p-surface-50); 
+    color: var(--p-surface-900);
+    margin: 0;
+    font-family: var(--p-font-family);
+}

@@ -7,6 +7,7 @@ import { AddressComponent } from './address/address.component';
 import { CarDataComponent } from './car-data/car-data.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { emailMatchValidator } from './validators/email-match.validator';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-large-form',
@@ -19,6 +20,7 @@ import { emailMatchValidator } from './validators/email-match.validator';
     AddressComponent,
     CarDataComponent,
     PrivacyComponent,
+    CardModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './large-form.component.html',
@@ -30,7 +32,7 @@ export class LargeFormComponent {
   privacyForm: FormGroup;
   submitted = signal(false);
   private swiperInstanceSignal = signal<any | undefined>(undefined);
-  private activeIndex = signal<number>(0);
+  public activeIndex = signal<number>(0);
 
   @ViewChild('swiperContainer') swiperRef!: ElementRef;
 
@@ -38,12 +40,36 @@ export class LargeFormComponent {
     import('swiper/element/bundle').then((swiper) => {
       swiper.register();
       const swiperInstance = this.swiperRef?.nativeElement?.swiper;
-      swiperInstance.on('slideChange', (swiper:any) => {
+      swiperInstance.on('slideChange', (swiper: any) => {
         this.onSlideChange(swiper.activeIndex as number);
-      })
+      });
       this.swiperInstanceSignal.set(swiperInstance);
     });
   }
+
+  ngAfterViewInit() {
+    document.addEventListener('focusin', (e) => {
+      const swiper = this.swiperInstanceSignal();
+      if (!swiper) return;
+
+      const activeIndex = swiper.activeIndex;
+
+      // Trova la slide che contiene l'elemento che ha ricevuto focus
+      const slideEl = (e.target as HTMLElement).closest('swiper-slide');
+      if (!slideEl) return;
+
+      const slideIndex = Array.from(slideEl.parentElement!.children).indexOf(slideEl);
+
+      // Se l'input NON è nella slide attiva → blocca il focus
+      if (slideIndex !== activeIndex) {
+        (e.target as HTMLElement).blur();
+
+        // Riporta Swiper alla slide corrente (senza animazione)
+        swiper.slideTo(activeIndex, 0);
+      }
+    });
+  }
+
   swiperInstance = computed(() => this.swiperInstanceSignal());
 
   constructor(private fb: FormBuilder) {
@@ -128,5 +154,5 @@ export class LargeFormComponent {
 
   isFirstSlide = computed(() => {
     return this.activeIndex() == 0;
-  })
+  });
 }

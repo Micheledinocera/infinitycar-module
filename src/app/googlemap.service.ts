@@ -60,7 +60,7 @@ export class GoogleMapService {
     const query = {
       v: 'weekly',
       callback,
-      key: 'Replace your firebase key',
+      key: 'AIzaSyDqoUjbl9k8BNtKcgY1ECfZtP2PeeP7mSM',
       libraries: 'places',
       loading: 'async',
       language: 'en',

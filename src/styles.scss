@@ -3,3 +3,5 @@
 @use 'swiper/css';
 @use 'swiper/css/navigation';
 @use 'swiper/css/pagination';
+
+@forward './styles/_index.scss';

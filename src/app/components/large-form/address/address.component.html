@@ -4,6 +4,9 @@
   <div class="form-row">
     <div class="form-group">
       <p-iftalabel>
+        <address-autocomplete (placeSelected)="onAddressSelected($event)"/>
+      </p-iftalabel>
+      <p-iftalabel>
         <label for="street">Via/Piazza *</label>
         <input
           type="text"
