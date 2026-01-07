@@ -1,43 +1,35 @@
-<div class="w-screen p-8">
-  <p-card>
-    <div class="form-header">
-      <h1>Modulo di Registrazione</h1>
-      <p>Compila tutti i campi obbligatori per procedere</p>
-    </div>
+<form (ngSubmit)="onSubmit()" class="form" autocomplete="off">
+  <div class="w-full h-full bg-(--my-app-primary) rounded-md p-2 my-2">
+    <swiper-container
+      slides-per-view="1"
+      #swiperContainer
+      allow-touch-move="false"
+      simulate-touch="false"
+      no-swiping="true"
+      class="h-full"
+    >
+      <swiper-slide [attr.inert]="activeIndex() !== 0 ? '' : null">
+        <app-personal-info [formGroup]="personalInfoForm" [submitted]="submitted"></app-personal-info>
+      </swiper-slide>
+      <swiper-slide [attr.inert]="activeIndex() !== 1 ? '' : null">
+        <app-address [formGroup]="addressForm" [submitted]="submitted"></app-address>
+      </swiper-slide>
+      <swiper-slide [attr.inert]="activeIndex() !== 2 ? '' : null">
+        <app-car-data [formGroup]="carDataForm" [submitted]="submitted"></app-car-data>
+      </swiper-slide>
+      <swiper-slide [attr.inert]="activeIndex() !== 3 ? '' : null">
+        <app-privacy [formGroup]="privacyForm" [submitted]="submitted"></app-privacy>
+      </swiper-slide>
+    </swiper-container>
+  </div>
 
-    <form (ngSubmit)="onSubmit()" class="form" autocomplete="off">
-      <div class="w-full h-100 bg-(--my-app-primary) rounded-md p-2 my-2">
-        <swiper-container
-          slides-per-view="1"
-          #swiperContainer
-          allow-touch-move="false"
-          simulate-touch="false"
-          no-swiping="true"
-        >
-          <swiper-slide [attr.inert]="activeIndex() !== 0 ? '' : null">
-            <app-personal-info [formGroup]="personalInfoForm" [submitted]="submitted"></app-personal-info>
-          </swiper-slide>
-          <swiper-slide [attr.inert]="activeIndex() !== 1 ? '' : null">
-            <app-address [formGroup]="addressForm" [submitted]="submitted"></app-address>
-          </swiper-slide>
-          <swiper-slide [attr.inert]="activeIndex() !== 2 ? '' : null">
-            <app-car-data [formGroup]="carDataForm" [submitted]="submitted"></app-car-data>
-          </swiper-slide>
-          <swiper-slide [attr.inert]="activeIndex() !== 3 ? '' : null">
-            <app-privacy [formGroup]="privacyForm" [submitted]="submitted"></app-privacy>
-          </swiper-slide>
-        </swiper-container>
-      </div>
-
-      <!-- Pulsanti -->
-      <div class="form-actions">
-        <p-button [disabled]="isFirstSlide()" (click)="prevSlide()">Indietro</p-button>
-        @if(isLastSlide()){
-        <p-button [disabled]="!isSlideFormInvalid()" (click)="onSubmit()">Invia</p-button>
-        } @else {
-        <p-button [disabled]="!isSlideFormInvalid()" (click)="nextSlide()">Avanti</p-button>
-        }
-      </div>
-    </form>
-  </p-card>
-</div>
+  <!-- Pulsanti -->
+  <div class="form-actions">
+    <p-button [disabled]="isFirstSlide()" (click)="prevSlide()">Indietro</p-button>
+    @if(isLastSlide()){
+    <p-button [disabled]="!isSlideFormInvalid()" (click)="onSubmit()">Invia</p-button>
+    } @else {
+    <p-button [disabled]="!isSlideFormInvalid()" (click)="nextSlide()">Avanti</p-button>
+    }
+  </div>
+</form>

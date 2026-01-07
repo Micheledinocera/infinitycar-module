@@ -7,7 +7,6 @@ import { AddressComponent } from './address/address.component';
 import { CarDataComponent } from './car-data/car-data.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { emailMatchValidator } from './validators/email-match.validator';
-import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-large-form',
@@ -20,7 +19,6 @@ import { CardModule } from 'primeng/card';
     AddressComponent,
     CarDataComponent,
     PrivacyComponent,
-    CardModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './large-form.component.html',
@@ -95,6 +93,15 @@ export class LargeFormComponent {
 
     this.carDataForm = this.fb.group({
       targa: ['', [Validators.required /* , Validators.pattern(/^[A-Z]{2}\d{3}[A-Z]{2}$/) */]],
+      marca: ['', Validators.required],
+      modello: ['', Validators.required],
+      alimentazione: [null, Validators.required],
+      porte: [null, Validators.required],
+      chilometri: ['', Validators.required],
+      anno: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]], // Validazione 4 cifre
+      note: [''],
+      inMoto: [false],
+      fermoAmministrativo: [false],
     });
 
     this.privacyForm = this.fb.group({

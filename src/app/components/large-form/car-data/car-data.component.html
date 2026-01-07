@@ -5,19 +5,129 @@
     <div class="form-group">
       <p-iftalabel>
         <label for="targa">Targa *</label>
-        <input
-          type="text"
-          id="targa"
-          formControlName="targa"
-          class="form-input"
-          pInputText
-          placeholder="es. AB123CD"
-          [class.error]="submitted() && targa?.invalid"
-        />
+        <input 
+            pInputText id="targa" formControlName="targa" class="full-width" 
+            placeholder="es. AB123CD"
+            [class.ng-invalid]="submitted() && targa?.invalid" 
+            [class.ng-dirty]="submitted() && targa?.invalid" />
       </p-iftalabel>
-      @if (submitted() && targa?.invalid) {
-      <span class="error-message">Targa non valida</span>
-      }
+      @if (submitted() && targa?.invalid) { <small class="error-message">Campo obbligatorio</small> }
+    </div>
+
+    <div class="form-group">
+      <p-iftalabel>
+        <label for="marca">Marca *</label>
+        <input 
+            pInputText id="marca" formControlName="marca" class="full-width" 
+            [class.ng-invalid]="submitted() && marca?.invalid"
+            [class.ng-dirty]="submitted() && marca?.invalid" />
+      </p-iftalabel>
+      @if (submitted() && marca?.invalid) { <small class="error-message">Campo obbligatorio</small> }
+    </div>
+
+    <div class="form-group">
+      <p-iftalabel>
+        <label for="modello">Modello *</label>
+        <input 
+            pInputText id="modello" formControlName="modello" class="full-width"
+            [class.ng-invalid]="submitted() && modello?.invalid"
+            [class.ng-dirty]="submitted() && modello?.invalid" />
+      </p-iftalabel>
+      @if (submitted() && modello?.invalid) { <small class="error-message">Campo obbligatorio</small> }
     </div>
   </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <p-iftalabel>
+        <label for="alimentazione">Alimentazione *</label>
+        <p-select 
+          inputId="alimentazione"
+          [options]="alimentazioneOptions"
+          formControlName="alimentazione"
+          placeholder="Scegli un tipo di alimentazione"
+          [style]="{'width':'100%'}"
+          [class.ng-invalid]="submitted() && alimentazione?.invalid"
+          [class.ng-dirty]="submitted() && alimentazione?.invalid">
+        </p-select>
+      </p-iftalabel>
+      @if (submitted() && alimentazione?.invalid) { <small class="error-message">Seleziona un'opzione</small> }
+    </div>
+
+    <div class="form-group">
+      <p-iftalabel>
+        <label for="porte">Numero di porte *</label>
+        <p-select 
+          inputId="porte"
+          [options]="porteOptions"
+          formControlName="porte"
+          placeholder="Scegli"
+          [style]="{'width':'100%'}"
+          [class.ng-invalid]="submitted() && porte?.invalid"
+          [class.ng-dirty]="submitted() && porte?.invalid">
+        </p-select>
+      </p-iftalabel>
+      @if (submitted() && porte?.invalid) { <small class="error-message">Seleziona un'opzione</small> }
+    </div>
+
+    <div class="form-group">
+      <p-iftalabel>
+        <label for="chilometri">Chilometri *</label>
+        <input 
+            pInputText type="number" id="chilometri" formControlName="chilometri" class="full-width"
+            [class.ng-invalid]="submitted() && chilometri?.invalid"
+            [class.ng-dirty]="submitted() && chilometri?.invalid" />
+      </p-iftalabel>
+      @if (submitted() && chilometri?.invalid) { <small class="error-message">Campo obbligatorio</small> }
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group" style="max-width: 33%;">
+      <p-iftalabel>
+        <label for="anno">Anno prima immatricolazione *</label>
+        <input 
+            pInputText type="number" id="anno" formControlName="anno" class="full-width" placeholder="Usare quattro cifre"
+            [class.ng-invalid]="submitted() && anno?.invalid"
+            [class.ng-dirty]="submitted() && anno?.invalid" />
+      </p-iftalabel>
+      @if (submitted() && anno?.invalid) { <small class="error-message">Inserire un anno valido</small> }
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group full-width">
+      <label for="note" style="margin-bottom: 0.5rem; display:block;">Difetti auto, urgenze e altre note</label>
+      <textarea 
+        rows="5" 
+        pInputTextarea 
+        id="note" 
+        formControlName="note" 
+        class="full-width" 
+        style="resize: none;"></textarea>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group full-width">
+      <h3 style="margin-bottom: 0.5rem; font-size: 1rem;">Stato dell'auto</h3>
+      
+      <div class="checkbox-group">
+        <div class="checkbox-item">
+          <p-checkbox formControlName="inMoto" [binary]="true" inputId="inMoto"></p-checkbox>
+          <label for="inMoto" style="margin-bottom: 0;">L'auto va in moto?</label>
+        </div>
+
+        <div class="checkbox-item">
+          <p-checkbox formControlName="fermoAmministrativo" [binary]="true" inputId="fermo"></p-checkbox>
+          <label for="fermo" style="margin-bottom: 0;">L'auto ha un fermo amministrativo?</label>
+        </div>
+      </div>
+
+      <p class="small-note">
+        Nel caso sia presente un fermo amministrativo, ti aiuteremo ad ottenere il nulla osta per demolire la tua auto
+      </p>
+    </div>
+  </div>
+
 </section>
