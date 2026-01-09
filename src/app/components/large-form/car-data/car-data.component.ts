@@ -1,12 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-// Import dei moduli PrimeNG necessari
 import { InputTextModule } from 'primeng/inputtext';
-import { IftaLabelModule } from 'primeng/iftalabel';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { CheckboxModule } from 'primeng/checkbox';
+import { Upload } from './upload/upload.component';
 
 @Component({
   selector: 'app-car-data',
@@ -15,10 +14,10 @@ import { CheckboxModule } from 'primeng/checkbox';
     CommonModule,
     ReactiveFormsModule,
     InputTextModule,
-    IftaLabelModule,
     SelectModule,
     TextareaModule,
-    CheckboxModule
+    CheckboxModule,
+    Upload
   ],
   templateUrl: './car-data.component.html',
 })

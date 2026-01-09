@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmit()" class="form" autocomplete="off">
-  <div class="w-full h-full bg-(--my-app-primary) rounded-md p-2 my-2">
+  <div class="w-full bg-(--my-app-primary) rounded-md p-2 my-2">
     <swiper-container
       slides-per-view="1"
       #swiperContainer
@@ -29,7 +29,8 @@
     @if(isLastSlide()){
     <p-button [disabled]="!isSlideFormInvalid()" (click)="onSubmit()">Invia</p-button>
     } @else {
-    <p-button [disabled]="!isSlideFormInvalid()" (click)="nextSlide()">Avanti</p-button>
+    <p-button (click)="nextSlide()">Avanti</p-button>
+    <!-- <p-button [disabled]="!isSlideFormInvalid()" (click)="nextSlide()">Avanti</p-button> -->
     }
   </div>
 </form>

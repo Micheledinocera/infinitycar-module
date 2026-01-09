@@ -2,12 +2,11 @@ import { Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
-import { IftaLabelModule } from 'primeng/iftalabel';
 
 @Component({
   selector: 'app-personal-info',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule, IftaLabelModule],
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule],
   templateUrl: './personal-info.component.html',
 })
 export class PersonalInfoComponent {

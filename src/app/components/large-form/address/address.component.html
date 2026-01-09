@@ -1,95 +1,83 @@
 <section class="form-section" [formGroup]="formGroup">
   <h2 class="my-4">Indirizzo</h2>
 
-  <div class="grid grid-cols-2 gap-8">
+  <div>
     <div class="form-group col-span-2">
-      <p-iftalabel>
-        <address-autocomplete (placeSelected)="onAddressSelected($event)" />
-      </p-iftalabel>
+      <address-autocomplete (placeSelected)="onAddressSelected($event)" />
     </div>
 
     <div class="form-group">
-      <p-iftalabel>
-        <label for="street">Via/Piazza *</label>
-        <input
-          type="text"
-          id="street"
-          formControlName="street"
-          class="form-input w-full"
-          pInputText
-          [class.error]="submitted() && street?.invalid"
-        />
-      </p-iftalabel>
+      <label for="street">Via/Piazza *</label>
+      <input
+        type="text"
+        id="street"
+        formControlName="street"
+        class="form-input w-full"
+        pInputText
+        [class.error]="submitted() && street?.invalid"
+      />
       @if (submitted() && street?.invalid) {
       <span class="error-message">Via/Piazza è obbligatoria</span>
       }
     </div>
 
     <div class="form-group">
-      <p-iftalabel>
-        <label for="civico">Civico *</label>
-        <input
-          type="text"
-          id="civico"
-          formControlName="civico"
-          class="form-input w-full"
-          pInputText
-          placeholder="es. 10/A"
-          [class.error]="submitted() && civico?.invalid"
-        />
-      </p-iftalabel>
+      <label for="civico">Civico *</label>
+      <input
+        type="text"
+        id="civico"
+        formControlName="civico"
+        class="form-input w-full"
+        pInputText
+        placeholder="es. 10/A"
+        [class.error]="submitted() && civico?.invalid"
+      />
       @if (submitted() && civico?.invalid) {
       <span class="error-message">Civico è obbligatorio</span>
       }
     </div>
     <div class="form-group">
-      <p-iftalabel>
-        <label for="city">Città *</label>
-        <input
-          type="text"
-          id="city"
-          formControlName="city"
-          class="form-input w-full"
-          pInputText
-          [class.error]="submitted() && city?.invalid"
-        />
-      </p-iftalabel>
+      <label for="city">Città *</label>
+      <input
+        type="text"
+        id="city"
+        formControlName="city"
+        class="form-input w-full"
+        pInputText
+        [class.error]="submitted() && city?.invalid"
+      />
       @if (submitted() && city?.invalid) {
       <span class="error-message">Città è obbligatorio</span>
       }
     </div>
 
     <div class="form-group">
-      <p-iftalabel>
-        <label for="zipCode">CAP *</label>
-        <input
-          type="text"
-          id="zipCode"
-          formControlName="zipCode"
-          class="form-input w-full"
-          pInputText
-          placeholder="00000"
-          [class.error]="submitted() && zipCode?.invalid"
-        />
-      </p-iftalabel>
+      <label for="zipCode">CAP *</label>
+      <input
+        type="text"
+        id="zipCode"
+        formControlName="zipCode"
+        class="form-input w-full"
+        pInputText
+        placeholder="00000"
+        [class.error]="submitted() && zipCode?.invalid"
+      />
       @if (submitted() && zipCode?.invalid) {
       <span class="error-message">CAP non valido (5 cifre)</span>
       }
     </div>
 
     <div class="form-group">
-      <p-iftalabel>
-        <label for="provincia">Provincia *</label>
-        <input
-          type="text"
-          id="provincia"
-          formControlName="provincia"
-          class="form-input w-full"
-          pInputText
-          placeholder="es. RM"
-          [class.error]="submitted() && provincia?.invalid"
-        />
-      </p-iftalabel>
+      <label for="provincia">Provincia *</label>
+      <input
+        type="text"
+        id="provincia"
+        formControlName="provincia"
+        class="form-input w-full"
+        pInputText
+        placeholder="es. RM"
+        [class.error]="submitted() && provincia?.invalid"
+      />
       @if (submitted() && provincia?.invalid) {
       <span class="error-message">Provincia è obbligatorio</span>
       }

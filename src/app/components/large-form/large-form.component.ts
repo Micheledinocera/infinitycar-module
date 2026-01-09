@@ -21,6 +21,7 @@ import { emailMatchValidator } from './validators/email-match.validator';
     PrivacyComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  styleUrl:'./large-form.component.scss',
   templateUrl: './large-form.component.html',
 })
 export class LargeFormComponent {

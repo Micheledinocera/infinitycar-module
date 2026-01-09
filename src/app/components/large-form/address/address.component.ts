@@ -2,13 +2,12 @@ import { Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
-import { IftaLabelModule } from 'primeng/iftalabel';
 import { AddressAutocomplete } from './address-autocomplete/address-autocomplete.component';
 
 @Component({
   selector: 'app-address',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule, IftaLabelModule,AddressAutocomplete],
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule, AddressAutocomplete],
   templateUrl: './address.component.html',
 })
 export class AddressComponent {

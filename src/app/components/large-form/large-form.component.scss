@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+form{
+    &>div:first-child{
+        height: calc(100vh - 230px);
+    }
+    ::ng-deep swiper-slide{
+        overflow-y: auto;
+        section>div{
+            @apply grid grid-cols-2 gap-4;
+        }
+    }
+}
